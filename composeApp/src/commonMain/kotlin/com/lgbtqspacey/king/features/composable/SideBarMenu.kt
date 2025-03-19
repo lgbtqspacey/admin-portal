@@ -1,45 +1,14 @@
 package com.lgbtqspacey.king.features.composable
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.lgbtqspacey.king.backend.adapter.AuthAdapter
-import com.lgbtqspacey.king.commonMain.composeResources.Res
-import com.lgbtqspacey.king.commonMain.composeResources.colaborators
-import com.lgbtqspacey.king.commonMain.composeResources.`continue`
-import com.lgbtqspacey.king.commonMain.composeResources.error
-import com.lgbtqspacey.king.commonMain.composeResources.home
-import com.lgbtqspacey.king.commonMain.composeResources.ic_account_circle
-import com.lgbtqspacey.king.commonMain.composeResources.ic_file
-import com.lgbtqspacey.king.commonMain.composeResources.ic_group
-import com.lgbtqspacey.king.commonMain.composeResources.ic_home
-import com.lgbtqspacey.king.commonMain.composeResources.ic_logout
-import com.lgbtqspacey.king.commonMain.composeResources.ic_settings
-import com.lgbtqspacey.king.commonMain.composeResources.ic_tag
-import com.lgbtqspacey.king.commonMain.composeResources.logout
-import com.lgbtqspacey.king.commonMain.composeResources.logout_confirmation
-import com.lgbtqspacey.king.commonMain.composeResources.logout_confirmation_subtitle
-import com.lgbtqspacey.king.commonMain.composeResources.no_back
-import com.lgbtqspacey.king.commonMain.composeResources.reports
-import com.lgbtqspacey.king.commonMain.composeResources.roles
-import com.lgbtqspacey.king.commonMain.composeResources.settings
+import com.lgbtqspacey.king.commonMain.composeResources.*
 import com.lgbtqspacey.king.database.dao.UserDao
 import com.lgbtqspacey.king.getPlatform
 import com.lgbtqspacey.king.helpers.Dimensions
@@ -51,6 +20,15 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
+/**
+ * Displays the sidebar navigation.
+ *
+ * @param current SideBarOption Current screen.
+ * @param navigator PreCompose Navigator
+ *
+ * @see Navigator
+ * @see SideBarOption
+ */
 @Composable
 fun SideBarMenu(current: SideBarOption, navigator: Navigator) {
     val coroutineScope = rememberCoroutineScope()
@@ -61,9 +39,7 @@ fun SideBarMenu(current: SideBarOption, navigator: Navigator) {
     var showErrorDialog by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
-    /***********************
-     * Conditional changes *
-     ***********************/
+    /** Conditional changes **/
     coroutineScope.launch {
         name = UserDao().getUser().name
     }
@@ -103,9 +79,7 @@ fun SideBarMenu(current: SideBarOption, navigator: Navigator) {
         navigator.navigate(Screens.APP)
     }
 
-    /******
-     * UI *
-     *****/
+    /** UI **/
     ConstraintLayout(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.surfaceContainer)
