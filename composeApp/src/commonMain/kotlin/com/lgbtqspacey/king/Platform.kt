@@ -21,3 +21,5 @@ abstract class Platform() {
 }
 
 expect fun getPlatform(): Platform
+
+expect fun copyToClipboard(value: String)

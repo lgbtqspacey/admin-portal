@@ -1,6 +1,7 @@
 package com.lgbtqspacey.king.features.people
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -13,19 +14,14 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.lgbtqspacey.king.backend.adapter.AdminAdapter
 import com.lgbtqspacey.king.backend.model.UserSummary
 import com.lgbtqspacey.king.commonMain.composeResources.Res
-import com.lgbtqspacey.king.commonMain.composeResources.colaborators
+import com.lgbtqspacey.king.commonMain.composeResources.ic_refresh
 import com.lgbtqspacey.king.features.composable.SideBarMenu
 import com.lgbtqspacey.king.features.composable.UserList
 import com.lgbtqspacey.king.features.composable.UserListHeader
@@ -33,7 +29,7 @@ import com.lgbtqspacey.king.helpers.Dimensions
 import com.lgbtqspacey.king.helpers.SideBarOption
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.navigation.Navigator
-import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun Users(navigator: Navigator) {
@@ -45,29 +41,37 @@ fun Users(navigator: Navigator) {
     var errorCode by remember { mutableStateOf("") }
     val userList = mutableListOf<UserSummary>()
 
-    /** Conditional changes **/
-    coroutineScope.launch {
-        val users = AdminAdapter().getUsers()
+    /**
+     * Retrieve users from remote database
+     */
+    val getUsers: () -> Unit = {
+        coroutineScope.launch {
+            userList.clear()
 
-        if (users.isSuccess) {
-            users.usersSummarized?.data?.forEach { user ->
-                val summary = UserSummary(
-                    id = user.id ?: "",
-                    accessLevel = user.accessLevel ?: "",
-                    name = user.name ?: "",
-                    pronouns = user.pronouns ?: ""
-                )
+            val users = AdminAdapter().getUsers()
 
-                userList.add(summary)
+            if (users.isSuccess) {
+                users.usersSummarized?.data?.forEach { user ->
+                    val summary = UserSummary(
+                        id = user.id ?: "",
+                        accessLevel = user.accessLevel ?: "",
+                        name = user.name ?: "",
+                        pronouns = user.pronouns ?: ""
+                    )
+
+                    userList.add(summary)
+                }
+            } else {
+                isError = true
+                errorCode = users.errorCode.toString()
+                errorMessage = users.errorMessage
             }
-        } else {
-            isError = true
-            errorCode = users.errorCode.toString()
-            errorMessage = users.errorMessage
-        }
 
-        isLoaded = true
+            isLoaded = true
+        }
     }
+
+    getUsers()
 
     /** UI **/
     ConstraintLayout(
@@ -93,13 +97,17 @@ fun Users(navigator: Navigator) {
         }
 
         Button(
-            onClick = {},
+            onClick = {
+                isLoaded = false
+                getUsers()
+            },
             modifier = Modifier.constrainAs(button) {
                 start.linkTo(menu.end, Dimensions.SIZE_16.dp())
                 top.linkTo(parent.top, Dimensions.SIZE_16.dp())
             }
         ) {
-            Text(stringResource(Res.string.colaborators))
+            Image(vectorResource(Res.drawable.ic_refresh), "")
+            Text("Recarregar")
         }
 
         /** Animated view to show loading circle while the application fetch the data **/
