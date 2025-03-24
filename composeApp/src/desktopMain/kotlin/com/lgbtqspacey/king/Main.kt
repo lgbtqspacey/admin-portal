@@ -16,7 +16,7 @@ fun main()  {
             ) {
                 window.minimumSize = Dimension(1280, 720)
 
-                getPlatform().initSentry(getPlatform().version)
+                getPlatform().initSentry(getPlatform().version, getPlatform().name)
                 Napier.base(DebugAntilog())
 
                 App()

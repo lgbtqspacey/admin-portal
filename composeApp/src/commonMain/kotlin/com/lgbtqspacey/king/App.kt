@@ -5,12 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.lgbtqspacey.king.database.dao.SessionDao
@@ -18,11 +13,7 @@ import com.lgbtqspacey.king.database.dao.SettingsDao
 import com.lgbtqspacey.king.features.auth.Login
 import com.lgbtqspacey.king.features.dashboard.Home
 import com.lgbtqspacey.king.features.dashboard.Settings
-import com.lgbtqspacey.king.features.people.Profile
-import com.lgbtqspacey.king.features.people.Reports
-import com.lgbtqspacey.king.features.people.Roles
-import com.lgbtqspacey.king.features.people.UserDetails
-import com.lgbtqspacey.king.features.people.Users
+import com.lgbtqspacey.king.features.people.*
 import com.lgbtqspacey.king.helpers.Screens
 import com.lgbtqspacey.king.ui.theme.AppTheme
 import kotlinx.coroutines.launch

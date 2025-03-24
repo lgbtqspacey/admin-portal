@@ -1,7 +1,7 @@
 package com.lgbtqspacey.king
 
 class AndroidPlatform() : Platform() {
-    override val name: String = "android"
+    override val name: String = "Android"
 }
 
 actual fun getPlatform(): Platform = AndroidPlatform()

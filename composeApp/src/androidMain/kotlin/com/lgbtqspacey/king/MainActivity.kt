@@ -2,7 +2,9 @@ package com.lgbtqspacey.king
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.compose.ui.platform.LocalContext
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 
@@ -10,7 +12,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getPlatform().initSentry(getPlatform().version)
+        getPlatform().initSentry(getPlatform().version, getPlatform().name)
         Napier.base(DebugAntilog())
 
         setContent {
