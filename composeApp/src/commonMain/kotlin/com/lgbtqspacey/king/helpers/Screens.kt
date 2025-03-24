@@ -8,6 +8,7 @@ object Screens {
     const val SETTINGS = "/settings"
     const val USERS = "/users"
     const val USER_DETAILS = "/user-details"
+    const val USER_CREATE = "/user-create"
     const val REPORTS = "/reports"
     const val ROLES = "/roles"
     const val PROFILE = "/profile"

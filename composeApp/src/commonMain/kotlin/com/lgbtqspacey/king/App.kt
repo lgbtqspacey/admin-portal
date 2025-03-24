@@ -92,6 +92,10 @@ fun App() {
                     UserDetails(navigator, userId)
                 }
 
+                scene(Screens.USER_CREATE) {
+                    UserCreate(navigator)
+                }
+
                 scene(Screens.REPORTS) {
                     Reports(navigator)
                 }

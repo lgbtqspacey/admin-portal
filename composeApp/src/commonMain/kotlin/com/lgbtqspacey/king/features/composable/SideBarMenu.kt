@@ -131,7 +131,7 @@ fun SideBarMenu(current: SideBarOption, navigator: Navigator) {
         MenuOption(
             text = stringResource(Res.string.colaborators),
             icon = Res.drawable.ic_group,
-            onClick = { navigator.navigate(Screens.USERS) },
+            onClick = { navigator.navigate(Screens.USER_CREATE) },
             enabled = current !== SideBarOption.USERS,
             modifier = Modifier.constrainAs(collaborators) {
                 top.linkTo(home.bottom)
