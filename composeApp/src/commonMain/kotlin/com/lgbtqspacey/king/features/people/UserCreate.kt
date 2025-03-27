@@ -228,14 +228,15 @@ fun UserCreate(navigator: Navigator, user: User? = null) {
         )
 
         dateOfBirth = InputField(
+            isDate = true,
             label = "Data de Nascimento",
-            modifier = Modifier.constrainAs(inputDateOfBirth) {
-                start.linkTo(parent.start, Dimensions.SIZE_16.dp())
-                top.linkTo(inputPronouns.bottom)
-            }
+            modifier = Modifier
+                .constrainAs(inputDateOfBirth) {
+                    start.linkTo(parent.start, Dimensions.SIZE_16.dp())
+                    top.linkTo(inputPronouns.bottom)
+                }
         )
 
-//        DatePickerModal(onDateSelected = {}, onDismiss = {})
 
         phone = InputField(
             label = "Telefone",
@@ -263,6 +264,7 @@ fun UserCreate(navigator: Navigator, user: User? = null) {
         )
 
         joinedAt = InputField(
+            isDate = true,
             label = "Data de entrada",
             modifier = Modifier.constrainAs(inputJoinedAt) {
                 start.linkTo(parent.start, Dimensions.SIZE_16.dp())
@@ -271,6 +273,7 @@ fun UserCreate(navigator: Navigator, user: User? = null) {
         )
 
         leftAt = InputField(
+            isDate = true,
             label = "Data de saída",
             modifier = Modifier.constrainAs(inputLeftAt) {
                 start.linkTo(parent.start, Dimensions.SIZE_16.dp())

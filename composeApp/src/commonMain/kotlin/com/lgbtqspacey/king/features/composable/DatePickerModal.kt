@@ -1,5 +1,6 @@
 package com.lgbtqspacey.king.features.composable
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 
@@ -7,26 +8,30 @@ import androidx.compose.runtime.Composable
 @Composable
 fun DatePickerModal(
     onDateSelected: (Long?) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    visible: Boolean,
 ) {
     val datePickerState = rememberDatePickerState()
 
-    DatePickerDialog(
-        onDismissRequest = onDismiss,
-        confirmButton = {
-            TextButton(onClick = {
-                onDateSelected(datePickerState.selectedDateMillis)
-                onDismiss()
-            }) {
-                Text("OK")
+    AnimatedVisibility(visible) {
+        DatePickerDialog(
+            onDismissRequest = onDismiss,
+            confirmButton = {
+                TextButton(onClick = {
+                    onDateSelected(datePickerState.selectedDateMillis)
+                    onDismiss()
+                }) {
+                    Text("OK")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { onDismiss() }) {
+                    Text("Cancelar")
+                }
             }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel")
-            }
+        ) {
+            DatePicker(state = datePickerState)
         }
-    ) {
-        DatePicker(state = datePickerState)
     }
+
 }
